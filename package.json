@@ -47,5 +47,12 @@
   },
   "peerDependencies": {
     "n8n-workflow": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freedomspeechkz/n8n-nodes-freedomspeech.git"
+  },
+  "bugs": {
+    "url": "https://github.com/freedomspeechkz/n8n-nodes-freedomspeech/issues"
   }
 }
