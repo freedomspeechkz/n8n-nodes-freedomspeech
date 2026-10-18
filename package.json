@@ -1,0 +1,51 @@
+{
+  "name": "n8n-nodes-freedomspeech",
+  "version": "0.1.0",
+  "description": "n8n community node for the Freedom Speech API: Kazakh, Russian and English speech recognition, speech synthesis, translation and language detection",
+  "keywords": [
+    "n8n-community-node-package",
+    "freedomspeech",
+    "speech-to-text",
+    "text-to-speech",
+    "kazakh",
+    "asr",
+    "tts",
+    "translation"
+  ],
+  "license": "MIT",
+  "author": "Freedom Speech",
+  "homepage": "https://freedomspeech.kz",
+  "main": "index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.10"
+  },
+  "scripts": {
+    "build": "tsc && node scripts/copy-icons.mjs",
+    "dev": "tsc --watch",
+    "lint": "tsc --noEmit",
+    "test": "npm run build && node --test tests/**/*.test.js",
+    "prepublishOnly": "npm run build"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/FreedomSpeechApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/FreedomSpeech/FreedomSpeech.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "n8n-workflow": "^1.82.0",
+    "typescript": "^5.6.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}
