@@ -8,8 +8,11 @@ import type {
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
-const USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) n8n-nodes-freedomspeech/0.1.0';
-const DEFAULT_BASE_URL = 'https://freedomspeech.kz';
+const USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) n8n-nodes-freedomspeech/0.1.1';
+// Адрес по умолчанию, на нём работают ключи из кабинета console.freedomspeech.kz: Transcribe, Speak.
+// Translate, Detect Language и Voices на нём пока не опубликованы (404, бэкенд в работе); для них нужен
+// другой Base URL в учётных данных. / Default host for console keys; translate, detect and voices are not published there yet.
+const DEFAULT_BASE_URL = 'https://api.freedomspeech.kz';
 
 type MultipartField = { name: string; value: string } | { name: string; filename: string; mime: string; data: Buffer };
 

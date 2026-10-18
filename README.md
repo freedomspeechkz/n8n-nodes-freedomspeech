@@ -33,9 +33,11 @@ npm install n8n-nodes-freedomspeech
 `Credentials > New > Freedom Speech API`. Поля:
 
 - `API Key`: ключ из личного кабинета freedomspeech.kz. Передаётся в заголовке `X-API-Key`.
-- `Base URL`: по умолчанию `https://freedomspeech.kz`, менять не нужно.
+- `Base URL`: по умолчанию `https://api.freedomspeech.kz`, менять не нужно.
 
-Кнопка `Test` отправляет короткий запрос определения языка и так проверяет ключ.
+Ключ из кабинета console.freedomspeech.kz работает на https://api.freedomspeech.kz, это адрес по умолчанию с версии 0.1.1. На этом адресе работают операции `Transcribe` и `Speak`. Операции `Translate`, `Detect Language` и `Voices` на нём пока не опубликованы (бэкенд в работе) и ключам кабинета недоступны.
+
+Кнопка `Test` озвучивает одно короткое слово и так проверяет ключ.
 
 ## Примеры
 
@@ -111,9 +113,11 @@ Restart n8n afterwards.
 `Credentials > New > Freedom Speech API`:
 
 - `API Key`: the key from your freedomspeech.kz dashboard, sent as the `X-API-Key` header.
-- `Base URL`: defaults to `https://freedomspeech.kz`; no need to change it.
+- `Base URL`: defaults to `https://api.freedomspeech.kz`; no need to change it.
 
-The `Test` button sends a short language detection request to check the key.
+Keys from the console.freedomspeech.kz dashboard work on https://api.freedomspeech.kz, the default since 0.1.1. `Transcribe` and `Speak` work there. `Translate`, `Detect Language` and `Voices` are not published on that host yet (backend work in progress) and are not available to console keys.
+
+The `Test` button synthesizes one short word to check the key.
 
 ### Examples
 

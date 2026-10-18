@@ -30,8 +30,8 @@ export class FreedomSpeechApi implements ICredentialType {
 			displayName: 'Base URL',
 			name: 'baseUrl',
 			type: 'string',
-			default: 'https://freedomspeech.kz',
-			description: 'Адрес API без завершающего слэша / API base URL without a trailing slash',
+			default: 'https://api.freedomspeech.kz',
+			description: 'Адрес API без завершающего слэша; ключ из кабинета console.freedomspeech.kz работает на https://api.freedomspeech.kz / API base URL without a trailing slash; console keys work on https://api.freedomspeech.kz',
 		},
 	];
 
@@ -44,17 +44,18 @@ export class FreedomSpeechApi implements ICredentialType {
 		},
 	};
 
-	// Проверка ключа: определение языка короткой строки требует ключ и почти ничего не стоит.
-	// Credential test: language detection needs a key and is nearly free.
+	// Проверка ключа: синтез одного короткого слова. Раньше было определение языка (/v2/detect),
+	// но на адресе по умолчанию api.freedomspeech.kz этот маршрут пока не опубликован.
+	// Credential test: synthesize one short word; /v2/detect is not published on the default host yet.
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: '={{$credentials.baseUrl}}',
-			url: '/v2/detect',
+			url: '/v1/audio/speech',
 			method: 'POST',
 			headers: {
 				'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) n8n-nodes-freedomspeech',
 			},
-			body: { text: 'Сәлеметсіз бе' },
+			body: { input: 'Сәлем', voice: 'tomiris' },
 		},
 	};
 }

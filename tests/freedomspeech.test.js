@@ -12,7 +12,7 @@ function makeContext({ params, items, responses, credentials }) {
 	const ctx = {
 		getInputData: () => items,
 		getNodeParameter: (name, i, fallback) => (name in params ? params[name] : fallback),
-		getCredentials: async () => ({ apiKey: 'test-key', baseUrl: 'https://freedomspeech.kz', ...(credentials || {}) }),
+		getCredentials: async () => ({ apiKey: 'test-key', baseUrl: 'https://api.freedomspeech.kz', ...(credentials || {}) }),
 		getNode: () => ({ name: 'Freedom Speech', type: 'freedomSpeech' }),
 		continueOnFail: () => false,
 		helpers: {
@@ -43,7 +43,7 @@ test('credentials: X-API-Key header and a key-protected test request', () => {
 	const c = new FreedomSpeechApi();
 	assert.equal(c.name, 'freedomSpeechApi');
 	assert.equal(c.authenticate.properties.headers['X-API-Key'], '={{$credentials.apiKey}}');
-	assert.equal(c.test.request.url, '/v2/detect');
+	assert.equal(c.test.request.url, '/v1/audio/speech');
 	assert.equal(c.test.request.method, 'POST');
 	assert.ok(c.properties.find((p) => p.name === 'apiKey').typeOptions.password);
 });
@@ -76,7 +76,7 @@ test('transcribe: multipart with file, prettify, diarization fields and language
 	assert.equal(calls.length, 1);
 	const { options } = calls[0];
 	assert.equal(options.method, 'POST');
-	assert.equal(options.url, 'https://freedomspeech.kz/v1/audio/transcriptions');
+	assert.equal(options.url, 'https://api.freedomspeech.kz/v1/audio/transcriptions');
 	assert.match(options.headers['Content-Type'], /^multipart\/form-data; boundary=/);
 	assert.match(options.headers['User-Agent'], /^Mozilla\/5\.0/);
 	const body = options.body.toString('latin1');
@@ -123,7 +123,7 @@ test('speak: JSON body and WAV in the output binary field', async () => {
 	});
 	const out = await new FreedomSpeech().execute.call(ctx);
 	const { options } = calls[0];
-	assert.equal(options.url, 'https://freedomspeech.kz/v1/audio/speech');
+	assert.equal(options.url, 'https://api.freedomspeech.kz/v1/audio/speech');
 	assert.equal(options.encoding, 'arraybuffer');
 	assert.deepEqual(options.body, { input: 'Сәлеметсіз бе', voice: 'taymas', model: 'freedomspeech-flash', response_format: 'wav', language: 'kk' });
 	assert.equal(out[0][0].binary.audio.fileName, 'hello.wav');
@@ -161,7 +161,7 @@ test('detect: language from detections[0]', async () => {
 		responses: [{ detections: [{ text: 'Қалайсың', detected_source_language: 'kk' }] }],
 	});
 	const out = await new FreedomSpeech().execute.call(ctx);
-	assert.equal(calls[0].options.url, 'https://freedomspeech.kz/v2/detect');
+	assert.equal(calls[0].options.url, 'https://api.freedomspeech.kz/v2/detect');
 	assert.equal(out[0][0].json.language, 'kk');
 });
 
